@@ -1,0 +1,57 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  python:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.10", "3.11", "3.12"]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+
+      - name: System dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg libmagic1 libpq-dev
+
+      - name: Install bridge
+        run: |
+          python -m pip install --upgrade pip setuptools wheel
+          python -m pip install --no-build-isolation .
+
+      - name: Compile
+        run: python -m compileall -q mautrix_max vendor/pymax/src/pymax
+
+      - name: Import smoke test
+        run: |
+          python - <<'PY'
+          import mautrix
+          import pymax
+          import mautrix_max
+          print(mautrix.__file__)
+          print(pymax.__file__)
+          print(mautrix_max.__version__)
+          PY
+
+      - name: Dependency check
+        run: python -m pip check
+
+      - name: Public release audit
+        run: python tools/check_release.py

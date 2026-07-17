@@ -1,0 +1,18 @@
+services:
+  mautrix-max:
+    build: .
+    image: pymatrix-max:local
+    container_name: mautrix-max
+    restart: unless-stopped
+    environment:
+      PYTHONUNBUFFERED: "1"
+      TZ: "${TZ:-UTC}"
+    volumes:
+      - ./data:/opt/mautrix-max/data
+    networks:
+      - matrix
+
+networks:
+  matrix:
+    external: true
+    name: "${MATRIX_DOCKER_NETWORK:-matrix_default}"

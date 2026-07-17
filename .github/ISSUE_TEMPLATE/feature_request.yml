@@ -1,0 +1,34 @@
+name: Предложить функцию
+description: Улучшение моста или документации
+title: "[Feature]: "
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Какую проблему решает предложение?
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Предлагаемое поведение
+    validations:
+      required: true
+
+  - type: dropdown
+    id: polling
+    attributes:
+      label: Требуется ли периодический опрос MAX?
+      options:
+        - Нет, решение событийное
+        - Возможно
+        - Да, другого варианта не вижу
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Альтернативы и ограничения

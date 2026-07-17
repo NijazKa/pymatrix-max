@@ -1,0 +1,14 @@
+.git
+.github
+.venv
+__pycache__
+*.pyc
+*.pyo
+*.db
+*.db-*
+*.sqlite*
+*.backup-*
+*.before-*
+data/*
+!data/.gitignore
+docs

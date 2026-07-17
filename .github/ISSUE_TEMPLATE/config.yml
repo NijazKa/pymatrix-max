@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Вопрос по безопасности
+    url: https://github.com/NijazKa/pymatrix-max/security/advisories/new
+    about: Не публикуйте уязвимости и token в обычных issue

@@ -1,0 +1,77 @@
+name: Сообщить об ошибке
+description: Воспроизводимая проблема в pymatrix-max
+title: "[Bug]: "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Не публикуйте token, session DB, номера телефонов и полный текст личной переписки.
+
+  - type: input
+    id: version
+    attributes:
+      label: Версия
+      placeholder: v0.12.0 / commit SHA
+    validations:
+      required: true
+
+  - type: dropdown
+    id: deployment
+    attributes:
+      label: Установка
+      options:
+        - Docker Compose
+        - systemd / venv
+        - другое
+    validations:
+      required: true
+
+  - type: dropdown
+    id: direction
+    attributes:
+      label: Направление
+      options:
+        - Matrix → MAX
+        - MAX → Matrix
+        - авторизация / reconnect
+        - группы / каналы
+        - установка / обновление
+        - другое
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Ожидаемое поведение
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Фактическое поведение
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Шаги воспроизведения
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Обезличенный фрагмент лога
+      render: shell
+
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: Проверка приватности
+      options:
+        - label: Я удалил token, телефоны, Matrix ID, room/event ID и личные сообщения
+          required: true

@@ -1,0 +1,105 @@
+homeserver:
+  # Client-server API Synapse, доступный из контейнера моста.
+  address: http://matrix-synapse:8008
+  domain: example.org
+  software: standard
+  websocket: false
+  ping_interval_seconds: 0
+  status_endpoint: null
+  message_send_checkpoint_endpoint: null
+  connection_limit: 100
+
+appservice:
+  # Адрес, по которому Synapse обращается к Application Service.
+  address: http://mautrix-max:29320
+  hostname: 0.0.0.0
+  port: 29320
+  tls_cert: false
+  tls_key: false
+  max_body_size: 1
+
+  # Относительный путь хранится внутри ./data, примонтированного в контейнер.
+  database: "sqlite:///data/pymatrix-max.db"
+  database_opts:
+    min_size: 1
+    max_size: 10
+
+  id: pymatrix_max
+  bot_username: maxbot
+  bot_displayname: "MAX Bridge Bot"
+  bot_avatar: null
+  ephemeral_events: false
+
+  # Генерируются командой `python -m mautrix_max -g`.
+  as_token: "GENERATE ME"
+  hs_token: "GENERATE ME"
+
+  metrics:
+    enabled: false
+    listen_port: 8000
+
+  manhole:
+    enabled: false
+    path: /var/tmp/pymatrix-max.manhole
+    whitelist: [0]
+
+bridge:
+  username_template: "max_{userid}"
+  displayname_template: "{displayname} (MAX)"
+  command_prefix: "!max"
+
+  # В группах и каналах сообщения отправляет bridge bot с префиксом имени.
+  # Это не создаёт отдельного Matrix ghost для каждого участника группы.
+  group_messages_via_bot: true
+
+  media:
+    # Максимальный размер одного медиафайла в байтах (100 МиБ).
+    max_size: 104857600
+
+  encryption:
+    allow: false
+    default: false
+
+  provisioning:
+    enabled: false
+    prefix: /_matrix/provisioning/v1
+    shared_secret: disable
+
+  double_puppet_server_map: {}
+  login_shared_secret_map: {}
+
+  permissions:
+    "*": relay
+    "example.org": user
+    "@admin:example.org": admin
+
+  max:
+    session_dir: "./data/sessions"
+
+max:
+  # Профиль устройства сохраняется отдельно для каждого MAX-аккаунта.
+  device_type: "DESKTOP"
+  app_version: "25.12.13"
+
+logging:
+  version: 1
+  formatters:
+    colored:
+      (): mautrix.util.logging.color.ColorFormatter
+      format: "[%(asctime)s] [%(levelname)s@%(name)s] %(message)s"
+  handlers:
+    console:
+      class: logging.StreamHandler
+      formatter: colored
+  loggers:
+    mau:
+      level: INFO
+    mau.as.api:
+      level: INFO
+    mau.portal:
+      level: INFO
+    aiohttp:
+      level: WARNING
+  root:
+    level: INFO
+    handlers: [console]

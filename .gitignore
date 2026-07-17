@@ -1,0 +1,42 @@
+# Runtime configuration and credentials
+data/*
+!data/.gitignore
+config.yaml
+registration.yaml
+.env
+.env.*
+!.env.example
+
+# Databases and MAX sessions
+*.db
+*.db-*
+*.sqlite
+*.sqlite3
+sessions/
+
+# Backups and local update artifacts
+*.bak
+*.orig
+*.before-*
+*.backup-*
+*.zip
+*.tar.gz
+backups/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+build/
+dist/
+
+# Editors and OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db

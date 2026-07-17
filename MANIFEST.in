@@ -1,0 +1,12 @@
+include LICENSE
+include README.md
+include CHANGELOG.md
+include THIRD_PARTY_NOTICES.md
+include example-config.yaml
+recursive-include docs *.md
+recursive-include mautrix_max *.py *.yaml
+recursive-include mautrix_max/licenses *
+recursive-include vendor/pymax/src/pymax *.py py.typed
+include vendor/pymax/LICENSE
+include vendor/pymax/README.md
+include vendor/pymax/pyproject.toml

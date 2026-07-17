@@ -1,0 +1,33 @@
+from pymax.types.domain import InitData
+
+from .protocol import IClientProtocol
+
+
+class BotsMixin(IClientProtocol):
+    """Методы клиента для взаимодействия с ботами."""
+
+    async def get_bot_init_data(
+        self,
+        bot_id: int,
+        chat_id: int,
+        start_param: str | None = None,
+    ) -> InitData:
+        """Получает начальные данные для бота в контексте конкретного чата.
+
+        Args:
+            bot_id: Идентификатор бота.
+            chat_id: Идентификатор чата, в котором бот будет использоваться.
+            start_param: Необязательный параметр, передаваемый при запуске
+                бота.
+
+        Returns:
+            Объект с начальными данными для бота.
+
+        Raises:
+            RuntimeError: Если получение данных не удалось.
+        """
+        return await self._app.api.bots.get_init_data(
+            bot_id=bot_id,
+            chat_id=chat_id,
+            start_param=start_param,
+        )
