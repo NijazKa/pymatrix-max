@@ -23,6 +23,7 @@ dependencies = [
     "aiohttp>=3.13.5,<4",
     "aiofiles>=25.1.0",
     "msgpack>=1.1.2",
+    "tomli>=2.0.1; python_version < '3.11'",
     "pydantic>=2.10.0,<3",
     "python-socks[asyncio]>=2.8.1",
     "qrcode>=8.2",
